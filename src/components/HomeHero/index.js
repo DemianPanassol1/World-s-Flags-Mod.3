@@ -4,9 +4,15 @@ import Typewriter from 'typewriter-effect';
 import welcome from './welcome';
 
 function HomeHero({ hero }) {
-    
+
     return (
-        <div className='text-center mt-10 md:mt-12'>
+        <motion.div
+            initial='initial'
+            animate='animate'
+            exit='exit'
+            variants={variants}
+            className='text-center mt-10 md:mt-12'
+        >
             <div className='text-4xl font-semibold text-blue-600'>
                 <Typewriter
                     options={{
@@ -32,8 +38,14 @@ function HomeHero({ hero }) {
                 Começar
             </motion.button>
 
-        </div>
+        </motion.div>
     );
 };
 
 export default HomeHero;
+
+const variants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 }
+};
