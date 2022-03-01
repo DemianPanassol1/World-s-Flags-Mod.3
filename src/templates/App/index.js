@@ -32,7 +32,7 @@ function App() {
                         element={
                             <main className='container mx-auto mt-10'>
                                 <p className='text-center'>
-                                    Não tem nada aqui
+                                    Não tem nada aqui {/* botar algo descente */}
                                 </p>
                             </main>
                         }

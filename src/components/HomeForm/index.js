@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { pesquisa } from '../../contexts/FlagsProvider/action';
+import { pesquisa, limparPesquisa } from '../../contexts/FlagsProvider/action';
 import { dispatchFlagsContext } from '../../contexts/FlagsProvider/context';
 
 function HomeForm({ hero }) {
-    const context = useContext(dispatchFlagsContext);
+    const dispatch = useContext(dispatchFlagsContext);
 
     const [searchItem, setSearchItem] = useState({
         select1: '',
@@ -25,15 +25,13 @@ function HomeForm({ hero }) {
         const { select1, select2, input1 } = searchItem;
 
         if (select1 === 'region' && select2 !== '') {
-            pesquisa(select1, select2, context);
+            pesquisa(select1, select2, dispatch);
 
         } else if (select1 !== 'region' && input1 !== '') {
-            pesquisa(select1, input1, context);
+            pesquisa(select1, input1, dispatch);
         } else {
-            console.log('preencha tod9os os campos');
+            console.log('preencha todos os campos');
         };
-
-        console.log(searchItem);
     };
 
     const clearSearchInputs = () => {
@@ -57,7 +55,7 @@ function HomeForm({ hero }) {
                     type='button'
                     whileTap={{ scale: 0.95 }}
                     className='px-4 py-2 bg-transparent text-blue-600 border border-blue-600 rounded hover:text-white hover:bg-blue-500 transition-colors'
-                    onClick={hero}
+                    onClick={() => { hero(); limparPesquisa(dispatch);}}
                 >
                     Voltar
                 </motion.button>

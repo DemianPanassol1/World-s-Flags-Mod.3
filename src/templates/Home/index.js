@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+
+import { flagsContext } from '../../contexts/FlagsProvider/context';
+
 import HomeHero from '../../components/HomeHero';
 import HomeForm from '../../components/HomeForm';
 import HomeCarousel from '../../components/HomeCarousel';
@@ -7,9 +10,16 @@ import HomeCarousel from '../../components/HomeCarousel';
 function HomePage() {
     const [showHero, setShowHero] = useState(true);
 
+    const { result, selected } = useContext(flagsContext);
+
     const handleShowHero = () => {
         setShowHero(!showHero);
     };
+
+    useEffect(() => {
+        (result !== null || selected !== null) && setShowHero(false);
+
+    }, [result, selected]);
 
     return (
         <motion.main
@@ -26,7 +36,7 @@ function HomePage() {
                         <HomeForm hero={handleShowHero} key={78541} />
                     )}
 
-                    <HomeCarousel key={54123}/>
+                    <HomeCarousel key={54123} />
                 </section>
             </AnimatePresence>
         </motion.main >
