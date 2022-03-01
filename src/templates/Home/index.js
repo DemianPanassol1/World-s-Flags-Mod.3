@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import HomeHero from '../../components/HomeHero';
 import HomeForm from '../../components/HomeForm';
+import HomeCarousel from '../../components/HomeCarousel';
 
 function HomePage() {
     const [showHero, setShowHero] = useState(true);
@@ -24,6 +25,8 @@ function HomePage() {
                     ) : (
                         <HomeForm hero={handleShowHero} key={78541} />
                     )}
+
+                    <HomeCarousel key={54123}/>
                 </section>
             </AnimatePresence>
         </motion.main >

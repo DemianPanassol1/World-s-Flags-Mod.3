@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { pesquisa } from '../../contexts/FlagsProvider/action';
+import { dispatchFlagsContext } from '../../contexts/FlagsProvider/context';
 
 function HomeForm({ hero }) {
+    const context = useContext(dispatchFlagsContext);
 
     const [searchItem, setSearchItem] = useState({
         select1: '',
@@ -19,10 +22,15 @@ function HomeForm({ hero }) {
     const setSearchOnSubmit = (e) => {
         e.preventDefault();
 
-        if (searchItem.select1 === 'region' && searchItem.select2 !== '') {
-            searchItem.input1 = '';
+        const { select1, select2, input1 } = searchItem;
+
+        if (select1 === 'region' && select2 !== '') {
+            pesquisa(select1, select2, context);
+
+        } else if (select1 !== 'region' && input1 !== '') {
+            pesquisa(select1, input1, context);
         } else {
-            searchItem.select2 = '';
+            console.log('preencha tod9os os campos');
         };
 
         console.log(searchItem);
@@ -71,7 +79,7 @@ function HomeForm({ hero }) {
 
             <form className='mx-auto h-44 lg:h-auto flex flex-col lg:flex-row lg:justify-between lg:items-center max-w-3xl' onSubmit={setSearchOnSubmit}>
                 <select name='select1' onChange={setOnChange} value={searchItem.select1} className='w-full lg:w-[320px] mb-4 lg:mb-0 rounded mr-4'>
-                    <option value="default" defaultChecked>Escolha uma opção...</option>
+                    <option value="default" defaultChecked>Pesquisar por...</option>
                     <option value="region">Região</option>
                     <option value="capital">Capital</option>
                     <option value="language">Lingua</option>
@@ -95,7 +103,7 @@ function HomeForm({ hero }) {
             </form>
         </motion.section>
     );
-}
+};
 
 export default HomeForm;
 
@@ -140,7 +148,7 @@ const FiltroTexto = ({ onChange }) => {
             type="text"
             onChange={onChange}
             className='w-full lg:w-[320px] rounded mr-4'
-            placeholder='Digite...' 
+            placeholder='Digite...'
         />
     );
 };

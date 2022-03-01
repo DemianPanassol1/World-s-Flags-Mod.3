@@ -3,19 +3,19 @@ import { CLEAR_ERROR, RESET_PESQUISA, RESET_PESQUISA_DETALHADA, SET_ERROR, SET_L
 
 const pesquisa = async (filtro1, filtro2, dispatch) => {
 
-    if (filtro1 === 'região') {
+    if (filtro1 === 'region') {
         await search('region', filtro2, dispatch);
 
     } else if (filtro1 === 'capital') {
         await search('capital', filtro2, dispatch);
 
-    } else if (filtro1 === 'lingua') {
+    } else if (filtro1 === 'language') {
         await search('lang', filtro2, dispatch);
 
-    } else if (filtro1 === 'país') {
+    } else if (filtro1 === 'country') {
         await search('name', filtro2, dispatch);
 
-    } else if (filtro1 === 'moeda') {
+    } else if (filtro1 === 'currency') {
         (filtro2 === 'dolar' || filtro2 === 'dólar') && (filtro2 = 'dollar');
 
         await search('currency', filtro2, dispatch);
@@ -76,7 +76,7 @@ export { pesquisa, pesquisaDetalhada, limparPesquisa, limparPesquisaDetalhada, s
 const search = async (type, value, dispatch) => {
     dispatch({ type: SET_LOADING });
 
-    limparPesquisa();
+    limparPesquisa(dispatch);
 
     try {
         const res = await axios.get(`https://restcountries.com/v3.1/${type}/${value}?fields=flags,name`);
